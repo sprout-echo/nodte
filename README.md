@@ -1,2 +1,2 @@
 # M-Note
-A markdown editor
+A note with markdown editor
