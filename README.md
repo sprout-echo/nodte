@@ -10,7 +10,7 @@ npm install
 npm start
 ```
 ## 开发项目
-   ### 安装依赖
+### 安装依赖
    npm install express ejs --save-dev
    
 ## 用nwjs封装项目
