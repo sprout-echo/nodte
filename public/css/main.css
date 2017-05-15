@@ -1,0 +1,336 @@
+*{
+	margin:0px;
+	padding: 0px;
+	font-family: 微软雅黑;
+}
+body{
+	width:100%;
+	height:100%;
+	overflow: hidden;
+}
+#left{
+	position: absolute;
+	width:30%;
+	height:100%;
+	background: #c6d0d1;
+	float:left;
+	overflow: hidden;
+}
+
+nav{
+	position: absolute;
+	left:-25%;
+	width: 25%;
+	height:100%;
+	background: #333;
+	z-index: 5;
+}
+#open{
+	padding: 10px;
+	border:1px solid #ccc;
+	cursor: pointer;
+}
+/*搜索框*/
+#back{
+	position: absolute;
+	right: 0px;
+	text-decoration: none;	
+	padding: 10px;
+	display: block;	
+	color:#111;
+}
+#newFile{
+	position: fixed;
+	width: 60px;
+	height:60px;
+	border-radius: 50%;
+	padding: 5px;
+	left:23%;
+	bottom:20px;	
+	outline: none;
+	border:0px;
+	cursor: pointer;
+	background: #FF5A1B;
+	color: #eee;
+	z-index: 3;
+}
+.search{
+	outline: none;
+	outline: none;
+	width: 40px;
+	padding: 10px 0px;
+	border-radius: 50%;
+	border:0px;	
+	background: transparent;
+}
+.active{
+	position: absolute;
+	left:5px;
+	width: 92%;
+	background: #fff;
+	z-index: 3;
+	transition:all 0.3s;
+	border-radius: 16px;
+	padding:11px;
+	box-shadow: 1px 1px 1px 1px #f5f5f5;
+	transition:all 0.5s;
+}
+/*左侧内容*/
+#titleController{
+	width: 100%;
+	height:100%;
+	overflow-x:hidden; 
+	overflow-y: auto;
+}
+.notes{
+	position: relative;
+	width: 95%;
+	height:auto;
+	padding: 10px;
+	border:1px solid #eee;
+	cursor: pointer;
+	margin-top: 2px;
+}
+.notes:hover{
+	background: #eee;
+}
+.note_title{
+	font-weight: bold;
+	color: #444;
+}
+.brief{
+	font-size: 12px;
+	color: #888;
+}
+.collect{
+	position: absolute;
+	right: 30px;
+	top:10px;
+	cursor: pointer;
+}
+.noteTime{
+	position: absolute;
+	right:10px;
+	font-size: 12p  x;
+	color: #177522;
+}
+
+/*导航栏*/
+#close{
+	width: 100%;
+	padding: 10px;
+	text-align: left;
+	font-size: 20px;
+	background: transparent;
+	color:#eee;
+	font-size: 20px;
+	cursor: pointer;
+	border:0px;
+	outline: none;
+}
+#close:hover{
+	color:#B93847;
+}
+nav ul{
+	width: 100%;
+	margin-top: 40px;
+	color: #999;
+	text-align: center;
+}
+nav ul li{
+	padding: 8px;
+	cursor: pointer;
+}
+nav ul li:hover{
+	background: #B93847;
+	color: #fff;
+}
+nav ul p{
+	text-align: left;
+	font-size: 16px;
+	color:#f5f5f5;
+	padding: 8px;
+}
+li span{
+	display: inline-block;
+	width: 100px;
+}
+/*配置*/
+#configBtn{
+	background: #222;
+}
+#configBtn:hover span{
+	margin-left: 25px;
+	transition:all 0.3s;
+}
+#mask{
+	position: absolute;
+	background: #000;
+	opacity: 0.4;
+	filter:alpha(opacity=40);
+	width: 100%;
+	height:100%;
+	z-index: 4;
+	display: none;
+}
+#configContent{
+	position: absolute;
+	left:0;
+	width: 100%;
+	height:20%;
+	background: #fff;
+	z-index: 5;
+	bottom:-100%;
+	box-shadow: 10px 10px 25px #777;
+}
+#configContent header{
+	width: 100%;
+	color: #EF726D;
+	background: #eee;
+	height:40px;
+	line-height: 40px;
+	border-top-left-radius: 8px;
+
+}
+#configContent header span{
+	margin-left: 15px;
+}
+#config_Close{
+	color: #B93847;
+	position: absolute;
+	right: 10px;
+	top:10px;
+	cursor: pointer;
+}
+#config-icon img{
+	text-align: center;
+	display:inline-block;
+	margin:20px 0px 10px 100px; 
+	cursor: pointer;
+}
+
+/*右侧内容*/
+#right{
+	position: absolute;
+	width: 70%;
+	height:100%;
+	background: #f5f5f5;
+	left:30%;
+}
+#face{
+	position: absolute;
+	width: 100%;
+	height:100%;
+	z-index: 2;
+}
+#guide{
+	margin: 20px 100px;
+	width:80%;
+	height:auto;
+	text-align: center;
+	background:#E8C5C4;
+	border-radius: 6px;
+	padding-bottom: 20px;
+}
+#guide p{
+	font-size: 23px;
+	color: #ddd;
+	background:#B93847;
+	padding: 20px;
+	border-radius: 6px;
+}
+#right p span{
+	font-size: 35px;
+	color: #fff;
+}
+#guide h3{
+	color:#B93847;
+	margin-top: 20px;
+}
+#welcome{
+	display: inline-block;
+	margin:20px 40%;
+}
+
+#noteContent{
+	display: none;
+	width: 100%;
+	height:100%;
+	z-index: 1;
+}
+#headBtn{
+	top:20px;
+	position: absolute;
+	right:20px;
+}
+#noteContent button{
+	padding: 8px 12px;
+	border:0px;
+	background:#1AA094;
+	color: #fff;
+	border-radius: 6px;
+	cursor: pointer;
+}
+#noteContent .indexCollect{
+	position: absolute;
+	font-size: 25px;
+	right:60px;
+	top:90px;
+	cursor: pointer;
+}
+#contentText{
+	margin:80px 50px;
+}
+.indexTitle{
+	font-size: 40px;
+}
+.contentDetail{
+	margin-top: 40px;
+}
+#pswMask{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background:#ccc;
+	opacity: 0.96;
+	z-index: 6;
+	top:0px;
+	filter:blur(30px);
+	display: none;
+}
+#pswContent{
+	position: absolute;
+	top:150px;
+	left:30%;
+	z-index: 10;
+	width:30%;
+	display: none;
+}
+#pswText{
+	width: 70%;
+	padding:8px;
+	border-radius: 6px;
+	border:1px solid #000;
+	outline: none;
+}
+#pswOK,#pswCancel{
+	width: 35%;
+	padding:8px;
+	border-radius: 6px;
+	outline: none;
+	background: #1AA094;
+	border:1px solid #1AA094;
+	color: #fff;
+	margin:15px 5px;
+	cursor: pointer;
+}
+#noteContent #delLock{
+	background: #fff;
+	color: #1AA094;
+	border:1px solid #1AA094;
+}
+#pswCancel{
+	border:1px solid #1AA094;
+	background: #fff;
+	color: #1AA094;
+}
