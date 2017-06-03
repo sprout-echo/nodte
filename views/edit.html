@@ -8,7 +8,11 @@
   	<header>
       <button id="addNoteBook">ADD</button>
   		<select>
+<<<<<<< HEAD
   			<option value="0">选择笔记本</option>
+=======
+  			<option vals="0">选择笔记本</option>
+>>>>>>> 487ea9ad4e41f57794719b4e7a9eeb75fcf80194
   		</select>
       <a href="/main"><button>取消</button></a>
       <button id="save">保存</button>
@@ -32,7 +36,10 @@
       <span class="list">List</span>
       <span class="images">img</span>
       <span class="alink">link</span>
+<<<<<<< HEAD
       <span class="atable">Table</span>
+=======
+>>>>>>> 487ea9ad4e41f57794719b4e7a9eeb75fcf80194
       <span class="cancel"><</span>
       <span class="recover">></span>
     </div>
@@ -117,6 +124,10 @@ $(document).ready(function(){
       url:'editNote',
       data:{flag:param},
       success:function(data){
+<<<<<<< HEAD
+=======
+        console.log(data);
+>>>>>>> 487ea9ad4e41f57794719b4e7a9eeb75fcf80194
         $('#titleText').val(data[0]['title']);
         $('#text').html(data[0]['markdown']);
         $('#mark').html(data[0]['content']);
@@ -130,6 +141,7 @@ $(document).ready(function(){
       var titleText = $('#titleText').val();
       var outText = $('#mark').html(); 
       var concreteText = $('#mark').text();
+<<<<<<< HEAD
       var book = $('select option:selected').text();
       var textareaVal = $('#text').val();
 
@@ -152,6 +164,25 @@ $(document).ready(function(){
           });
       }
      
+=======
+      var book = $('select option:selected').val();
+      var textareaVal = $('#text').val();
+
+      $.ajax({
+        type:'post',
+        url:'editSave',
+        data:{titleText:titleText,outText:outText,notebook:book,concreteText:concreteText,markdown:textareaVal,flag:param},
+        success:function(data){
+          if(data.success == true){
+            alert('保存成功');
+            window.location.href='/main';
+          }
+        },
+        error:function(data){
+          console.log(data);
+        }
+      });
+>>>>>>> 487ea9ad4e41f57794719b4e7a9eeb75fcf80194
     });
   }else{
     //字符串不包含参数
@@ -162,6 +193,7 @@ $(document).ready(function(){
         var concreteText = $('#mark').text();
         var currentDate =new Date();
         var currentFormat = (''+currentDate.getFullYear() + (currentDate.getMonth()+1) + currentDate.getDate() + currentDate.getHours() + currentDate.getMinutes() + currentDate.getSeconds());
+<<<<<<< HEAD
         var book = $('select option:selected').text();
         var textareaVal = $('#text').val();
         if(book == '选择笔记本'){
@@ -198,6 +230,28 @@ $(document).ready(function(){
       console.log('error');
     }
   })
+=======
+        var book = $('select option:selected').val();
+        var textareaVal = $('#text').val();
+        $.ajax({ 
+          type:'post',
+          async:true,
+          url:'/save',
+          data:{titleText:titleText,outText:outText,flags:currentFormat,notebook:book,concreteText:concreteText,markdown:textareaVal},
+          success:function(data){
+            if(data.success){
+              alert('保存成功');
+              window.location.href='/main';
+            }
+          },
+          error:function(data){
+            console.log('error');
+          }
+        });
+
+    });
+  }
+>>>>>>> 487ea9ad4e41f57794719b4e7a9eeb75fcf80194
 });
 </script>
 </html>

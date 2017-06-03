@@ -4,23 +4,82 @@ $(document).ready(function(){
 		url:'/datalist',
 		success:function(data){
 			for(var i=0;i<data.length;i++){
+<<<<<<< HEAD
 				var newNotes = $("<div class='notes'></div>").append("<p class='note_title'>"+data[i]['title']+"</p><p class='brief'>"+data[i]['concrete'].substring(0,50)+'...'+"</p><div><span class='noteDel' title='delete'><i class='fa fa-trash' aria-hidden='true'> </i> </span> <i class='fa fa-download' aria-hidden='true' title='download' onclick=\"downloadNote('"+data[i]['flag']+"');\"></i><span class='noteTime'>" + data[i]['flag']+"</span></div><div class='collect'></div>");
+=======
+				var newNotes = $("<div class='notes'></div>").append("<p class='note_title'>"+data[i]['title']+"</p><p class='brief'>"+data[i]['concrete']+"</p><div><span class='noteDel'><i class='fa fa-trash' aria-hidden='true'></i></span> <span class='noteTime'>" + data[i]['flag']+"</span></div><div class='collect'></div>");
+>>>>>>> 487ea9ad4e41f57794719b4e7a9eeb75fcf80194
 				var finalNote = $("#titleController").append(newNotes);
 				if(data[i]['collect'] == 0){
 					$('.collect').eq(i).html("<i class='fa fa-heart-o' aria-hidden='true'></i>");
 				}else{
 					$('.collect').eq(i).html("<i class='fa fa-heart' aria-hidden='true'></i>"); 
+<<<<<<< HEAD
 				}           
 			}
 
+=======
+				}
+			}
+>>>>>>> 487ea9ad4e41f57794719b4e7a9eeb75fcf80194
 		},
 		error:function(data){
 			console.log(data);
 		}
 	}).done(function(){
 		$('.notes').click(function(){
+<<<<<<< HEAD
 			var _that = $(this);
 			noteClick(_that);
+=======
+			$(this).css({'background':'#f5f5f5'});
+			$(this).siblings().css({'background':'transparent'});
+			$('#face').fadeOut();
+			$('#noteContent').fadeIn();
+
+			var flag = $(this).children().eq(2).children().eq(1).text();
+			$.ajax({
+				type:'post',
+				url:'/content',
+				data:{flag:flag},
+				success:function(data){
+					if(data[0]['password']){
+						//已经加密
+						$('#pswMask').show();
+						$('#pswContent').show();
+						$('#pswText').val('');
+						$('.indexTitle').html(data[0]['title']);
+						$('.contentDetail').html(data[0]['content']);
+						$('.indexTime').html(data[0]['flag']);
+
+						if(data[0]['collect'] == 0){
+							$('.indexCollect').html('<i class="fa fa-heart-o" aria-hidden="true"></i>');
+						}else if(data[0]['collect'] == 1){
+							$('.indexCollect').html('<i class="fa fa-heart" aria-hidden="true"></i>');
+						}
+						
+					}else{
+						//没设置密码
+						$('#pswMask').hide();
+						$('#pswContent').hide();
+						$('.indexTitle').html(data[0]['title']);
+						$('.contentDetail').html(data[0]['content']);
+						$('.indexTime').html(data[0]['flag']);
+
+						if(data[0]['collect'] == 0){
+							$('.indexCollect').html('<i class="fa fa-heart-o" aria-hidden="true"></i>');
+						}else if(data[0]['collect'] == 1){
+							$('.indexCollect').html('<i class="fa fa-heart" aria-hidden="true"></i>');
+						}
+					}	
+					$('#editPath').attr('href','edit?'+flag);				
+					
+				},
+				error:function(data){
+					console.log('error');
+				}
+			});
+>>>>>>> 487ea9ad4e41f57794719b4e7a9eeb75fcf80194
 		});
 
 		$('#pswBtn').click(function(){
@@ -76,6 +135,7 @@ $(document).ready(function(){
 		});
 
 		$('.noteDel').click(function(){
+<<<<<<< HEAD
 			var _that = $(this);
 			delNotes(_that);
 			
@@ -83,6 +143,30 @@ $(document).ready(function(){
 		$('.collect').click(function(){
 			var _that = $(this);
 			var flag = $(this).siblings().children().eq(2).text();
+=======
+			var flag = $(this).siblings().text();
+			if(confirm('确定要删除该笔记?')){
+				$.ajax({
+				type:'post',
+				url:'/noteDel',
+				data:{flag:flag},
+				success:function(data){
+					if(data.success == true){
+						alert('删除成功');
+					}
+					window.location.reload();
+				},
+				error:function(data){
+					console.log(data);
+				}
+			});
+			}
+			
+		});
+		$('.collect').click(function(){
+			var flag = $(this).siblings().children().eq(1).text();
+			var _that = $(this);
+>>>>>>> 487ea9ad4e41f57794719b4e7a9eeb75fcf80194
 			$.ajax({
 				type:'post',
 				url:'/collect',
@@ -93,7 +177,11 @@ $(document).ready(function(){
 						$('.indexCollect').html('<i class="fa fa-heart" aria-hidden="true"></i>');
 					}if(data.success == false){
 						_that.html('<i class="fa fa-heart-o" aria-hidden="true"></i>');
+<<<<<<< HEAD
 						$('.indexCollect').html('<i d class="fa fa-heart-o" aria-hidden="true"></i>');
+=======
+						$('.indexCollect').html('<i class="fa fa-heart-o" aria-hidden="true"></i>');
+>>>>>>> 487ea9ad4e41f57794719b4e7a9eeb75fcf80194
 					}
 				},
 				error:function(data){
@@ -115,11 +203,16 @@ $(document).ready(function(){
 						}
 					},
 					error:function(data){
+<<<<<<< HEAD
 						console.log('error');
+=======
+
+>>>>>>> 487ea9ad4e41f57794719b4e7a9eeb75fcf80194
 					}
 				})
 			}
 		});
+<<<<<<< HEAD
 		//导航栏按钮
 		//所有笔记本
 		$('#allNote').click(function(){
@@ -322,6 +415,12 @@ function delNotes(_that){
 	});
 	}
 }
+=======
+
+
+	});
+});
+>>>>>>> 487ea9ad4e41f57794719b4e7a9eeb75fcf80194
 
 $('#open').click(function(){
 	$('nav').animate({left:0});
@@ -340,13 +439,17 @@ $('#mask').click(function(){
 
 $('.search').focus(function(){
 	$('.search').addClass('active');
+<<<<<<< HEAD
 	$('#searchBtn').css({'zIndex':'4','position':'absolute','top':'10px'});
+=======
+>>>>>>> 487ea9ad4e41f57794719b4e7a9eeb75fcf80194
 });
 
 $('.search').blur(function(){
 	$('.search').removeClass('active');
 });
 
+<<<<<<< HEAD
 //夜间模式
 
 $('#configBtn').click(function(){
@@ -419,3 +522,20 @@ $('#uploadBtn').click(function(){
 $('#formBtn').click(function(){
 	
 });
+=======
+$('#configBtn').click(function(){
+	$('nav').animate({left:'-25%'});
+	$('#configContent').animate({bottom:'0px'}).animate({bottom:'0px'});
+});
+
+$('#config_Close').click(function(){
+	$('#configContent').animate({bottom:'0px'}).animate({bottom:'-100%'});
+	$('#mask').fadeOut(1500);
+});
+
+$('#theme').click(function(){
+	$(this).attr('src','images/light.png');
+	$('#left').css({'background':'#222','color':'#f5f5f5'});
+	$('#right').css({'background':'#555'});
+});
+>>>>>>> 487ea9ad4e41f57794719b4e7a9eeb75fcf80194
