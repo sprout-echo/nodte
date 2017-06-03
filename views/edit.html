@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>YI-Center</title>
+    <link rel="stylesheet" type="text/css" href="css/edit.css">
+  </head>
+  <body>
+  	<header>
+      <button id="addNoteBook">ADD</button>
+  		<select>
+  			<option value="0">选择笔记本</option>
+  		</select>
+      <a href="/main"><button>取消</button></a>
+      <button id="save">保存</button>
+  	</header>
+    <div id="notebook">
+      <input type="text" id="notebookText" name="notebookText" placeholder="请输入笔记本名称 | 标签">
+      <input type="button" value="添加" id="addBookBtn">
+      <input type="button" value="取消" id="cancelBookBtn">
+    </div> 
+
+    <div id="title">
+      <input type="text" name="title" placeholder="请输入标题" id="titleText">
+    </div>
+    <div id="icon">
+      <span class="bold">B</span>
+      <span class="heading">A</span>
+      <span class="em"><em>I</em></span>
+      <span class="quote"><\/></span>
+      <span class="line">---</span>
+      <span class="code">Code</span>
+      <span class="list">List</span>
+      <span class="images">img</span>
+      <span class="alink">link</span>
+      <span class="atable">Table</span>
+      <span class="cancel"><</span>
+      <span class="recover">></span>
+    </div>
+    <!-- <textarea id="in" placeholder="从这里开始输入内容吧..."></textarea>
+    <div id="out"></div> -->
+    <textarea id="text" onkeyup="(function(){document.getElementById('mark').innerHTML = markdown(document.getElementById('text').value)})()"></textarea>
+    <div id="mark"></div>
+</body>
+  <script type="text/javascript" src="javascripts/jquery-1.11.3.min.js"></script>
+  <script type="text/javascript" src="javascripts/markdown.js"></script>
+  <script type="text/javascript">
+  //var $ = function(id){ return document.getElementById(id);}
+  $('.bold').click(function(){
+    var textVal = $('#text').val();
+    $('#text').val(textVal+"****");
+  });
+
+  $('.em').click(function(){
+    var textVal = $('#text').val();
+    $('#text').val(textVal+"**");
+  });
+
+  $('.quote').click(function(){
+    var textVal = $('#text').val();
+    $('#text').val(textVal+"> ");
+  });
+
+  $('.line').click(function(){
+    var textVal = $('#text').val();
+    $('#text').val(textVal+"--- ");
+  });
+
+  $('.code').click(function(){
+    var textVal = $('#text').val();
+    $('#text').val(textVal+"``````");
+  });
+
+  $('.alink').click(function(){
+    var textVal = $('#text').val();
+    $('#text').val(textVal+"[w](http://)");
+  });
+
+  $('.list').click(function(){
+    var textVal = $('#text').val();
+    $('#text').val(textVal+"*");
+  });
+
+  $('.images').click(function(){
+    var textVal = $('#text').val();
+    $('#text').val(textVal+"![alt](http://)");
+  });
+
+$('#addNoteBook').click(function(){
+  $('#notebook').animate({top:'0px'}).animate({top:'-10px'});
+});
+
+$('#cancelBookBtn').click(function(){
+  $('#notebook').animate({top:'-100%'});
+});
+
+$('#addBookBtn').click(function(){
+  var book = $('#notebookText').val();
+  if(book == ''){
+    alert('请输入笔记本名称 | 标签');
+  }else{
+    $('select').append('<option>'+book+'</option>');
+    $('#notebook').animate({top:'-100%'});
+    alert('添加成功');
+  }
+ 
+});
+
+$(document).ready(function(){
+  var path = window.location.href;
+  var paramStr = window.location.search;
+  var param = paramStr.substring(1,paramStr.length);
+  
+  if(path.indexOf('?')>-1){
+    //字符串包含参数
+    $.ajax({
+      type:'post',
+      url:'editNote',
+      data:{flag:param},
+      success:function(data){
+        $('#titleText').val(data[0]['title']);
+        $('#text').html(data[0]['markdown']);
+        $('#mark').html(data[0]['content']);
+      },
+      error:function(data){
+        console.log('error');
+      }
+    });
+
+    $('#save').click(function(){
+      var titleText = $('#titleText').val();
+      var outText = $('#mark').html(); 
+      var concreteText = $('#mark').text();
+      var book = $('select option:selected').text();
+      var textareaVal = $('#text').val();
+
+      if(book == '选择笔记本'){
+        alert('请选择笔记本');
+      }else{
+         $.ajax({
+            type:'post',
+            url:'editSave',
+            data:{titleText:titleText,outText:outText,notebook:book,concreteText:concreteText,markdown:textareaVal,flag:param},
+            success:function(data){
+              if(data.success == true){
+                alert('保存成功');
+                window.location.href='/main';
+              }
+            },
+            error:function(data){
+              console.log(data);
+            }
+          });
+      }
+     
+    });
+  }else{
+    //字符串不包含参数
+      $('#save').click(function(){
+      
+        var titleText = $('#titleText').val();
+        var outText = $('#mark').html(); 
+        var concreteText = $('#mark').text();
+        var currentDate =new Date();
+        var currentFormat = (''+currentDate.getFullYear() + (currentDate.getMonth()+1) + currentDate.getDate() + currentDate.getHours() + currentDate.getMinutes() + currentDate.getSeconds());
+        var book = $('select option:selected').text();
+        var textareaVal = $('#text').val();
+        if(book == '选择笔记本'){
+          alert('请选择笔记本');
+        }else{
+          $.ajax({ 
+            type:'post',
+            async:true,
+            url:'/save',
+            data:{titleText:titleText,outText:outText,flags:currentFormat,notebook:book,concreteText:concreteText,markdown:textareaVal},
+            success:function(data){
+              if(data.success){
+                alert('保存成功');
+                window.location.href='/main';
+              }
+            },
+            error:function(data){
+              console.log('error');
+            }
+          });
+        }
+    });
+  }
+
+  $.ajax({
+    type:'post',
+    url:'/book',
+    success:function(data){
+      for(var i=0;i<data.length;i++){
+        $('select').append("<option value="+i+1+">"+data[i]+"</option>");
+      }
+    },
+    error:function(data){
+      console.log('error');
+    }
+  })
+});
+</script>
+</html>
