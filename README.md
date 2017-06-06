@@ -3,8 +3,13 @@ A note with markdown editor(一个带有markdown编辑器的笔记存储平台)
 
 技术栈：express4.x+mongoose+nw.js
 
-【1，目前完成添加，删除，编辑，加密，修改夜间模式的功能
-  2，还需完成的功能：导入，导出文件的功能；设置页面以及导航栏的功能；页面样式美观优化；......】
+功能：
+* 添加，删除，查询，修改
+* 加密（针对每个笔记）
+* 下载文件
+* 夜间模式
+* 上传文件（还有问题）
+
 >use nw.js encapsulated into desktop application
 
 ## 运行项目
