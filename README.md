@@ -21,8 +21,9 @@ npm start
 ```
 ## 开发项目
 ### 安装依赖
-   npm install express ejs --save-dev
-   
+   npm install express --save-dev
+   npm install mongoose --save-dev 
+    
 ## 用nwjs封装项目
 只需要修改package.json即可
 
