@@ -8,7 +8,8 @@ A note with markdown editor(一个带有markdown编辑器的笔记存储平台)
 * 加密（针对每个笔记）
 * 下载文件
 * 夜间模式
-* 上传文件（还有问题）
+* 上传文件
+* 笔记标签分类
 
 >use nw.js encapsulated into desktop application
 
