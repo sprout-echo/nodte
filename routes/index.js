@@ -1,14 +1,13 @@
 var express = require('express');
 var router = express.Router();
-<<<<<<< HEAD
+
 var fs = require("fs");
 
 var Note = require('../models/note.js');
 var Manager = require('../models/manager.js');
-=======
+
 
 var Note = require('../models/note.js');
->>>>>>> 487ea9ad4e41f57794719b4e7a9eeb75fcf80194
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -47,10 +46,7 @@ router.post('/save',function(req,res){
 	newNote.save();
 	res.send({success:true});
 });
-<<<<<<< HEAD
 
-=======
->>>>>>> 487ea9ad4e41f57794719b4e7a9eeb75fcf80194
 router.post('/editSave',function(req,res){
 	var editNote = new Note({
 		title:req.body.titleText,
@@ -184,7 +180,6 @@ router.post('/editNote',function(req,res){
 	});
 });
 
-<<<<<<< HEAD
 router.post('/collectlist',function(req,res){
 	Note.find({collect:1},function(err,doc){
 		if(err){
@@ -291,13 +286,5 @@ router.post('/login',function(req,res){
 router.post('/upload',function(req,res,next){
 	res.send(req.body);
 });
-
-
-
-
-
-
-=======
->>>>>>> 487ea9ad4e41f57794719b4e7a9eeb75fcf80194
 
 module.exports = router;
